@@ -46,7 +46,7 @@ class MainActivity : FragmentActivity() {
             setPadding(0, dp(6), 0, dp(4))
         }, match(WRAP))
 
-        preview = FingerprintBurstView()
+        preview = FingerprintBurstView(this)
         root.addView(preview, LinearLayout.LayoutParams(matchParent(), dp(270)))
 
         val device = "УСТРОЙСТВО\n${android.os.Build.MANUFACTURER} ${android.os.Build.MODEL}\nAndroid ${android.os.Build.VERSION.RELEASE} (SDK ${android.os.Build.VERSION.SDK_INT})"
@@ -138,7 +138,7 @@ class MainActivity : FragmentActivity() {
     companion object { private const val WRAP = ViewGroup.LayoutParams.WRAP_CONTENT }
 }
 
-private class FingerprintBurstView : View(null) {
+private class FingerprintBurstView(context: android.content.Context) : View(context) {
     private val base = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
         strokeWidth = 2.5f
@@ -159,9 +159,6 @@ private class FingerprintBurstView : View(null) {
     private var burst = false
     private var pulse = false
 
-    constructor(context: android.content.Context) : this() { }
-
-    private constructor() : super(null)
 
     fun playSuccessBurst() {
         burst = true
